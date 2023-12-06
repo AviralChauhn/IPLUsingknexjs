@@ -9,108 +9,66 @@ const strikeRate = require("./knexQueries/strikeRate");
 const playerDismissed = require("./knexQueries/PlayerDismissedByAnotherPlayer");
 const bestSuperOverEco = require("./knexQueries/bowlerWithBestSuperOverEconomy");
 matchesPerYear()
-  .then((results) => {
+  .then((matchesPlayedResults) => {
     console.log("Matches Played");
-    console.log(results);
+    console.log(matchesPlayedResults);
+
+    return matchesWonPerTeamPerYear();
   })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-matchesWonPerTeamPerYear()
-  .then((results) => {
+  .then((matchesWonResults) => {
     console.log("Matches Won");
-    console.log(results);
+    console.log(matchesWonResults);
+
+    return extraRunsConceeded();
   })
-  .catch((error) => {
-    console.log(error);
+  .then((extraRunsResults) => {
+    console.log("Extra Runs Conceded Per team");
+    console.log(extraRunsResults);
+
+    return topEcoBowlers();
   })
-  .finally(() => {
-    knex.destroy();
-  });
-extraRunsConceeded()
-  .then((results) => {
-    console.log("Extra Runs Conceeded Per team");
-    console.log(results);
+  .then((topEcoBowlersResults) => {
+    console.log("Top 10 economical bowlers are");
+    console.log(topEcoBowlersResults);
+
+    return tossWinsMatchWins();
   })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-topEcoBowlers()
-  .then((results) => {
-    console.log("top 10 economical bowlers are");
-    console.log(results);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-tossWinsMatchWins()
-  .then((results) => {
+  .then((tossWinsMatchWinsResults) => {
     console.log(
       "Number of times a team has won the toss and also won the match"
     );
-    console.log(results);
+    console.log(tossWinsMatchWinsResults);
+
+    return highestPOTM();
   })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-highestPOTM()
-  .then((results) => {
+  .then((highestPOTMResults) => {
     console.log(
       "Highest Number of times player has won Player of the match each season"
     );
-    console.log(results);
+    console.log(highestPOTMResults);
+
+    return strikeRate();
   })
-  .catch((error) => {
-    console.log(error);
+  .then((strikeRateResults) => {
+    console.log("Strike rate of a player in each season is");
+    console.log(strikeRateResults);
+
+    return playerDismissed();
   })
-  .finally(() => {
-    knex.destroy();
-  });
-strikeRate()
-  .then((results) => {
-    console.log("strike rate of a player in each season is");
-    console.log(results);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-playerDismissed()
-  .then((results) => {
+  .then((playerDismissedResults) => {
     console.log(
-      "Highest Number of time a player has been dismissed by other player is"
+      "Highest Number of times a player has been dismissed by another player is"
     );
-    console.log(results);
+    console.log(playerDismissedResults);
+
+    return bestSuperOverEco();
+  })
+  .then((bestSuperOverEcoResults) => {
+    console.log("Best Super Over Economy");
+    console.log(bestSuperOverEcoResults);
   })
   .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    knex.destroy();
-  });
-bestSuperOverEco()
-  .then((results) => {
-    console.log(
-      "Highest Number of time a player has been dismissed by other player is"
-    );
-    console.log(results);
-  })
-  .catch((error) => {
-    console.log(error);
+    console.error(error);
   })
   .finally(() => {
     knex.destroy();
